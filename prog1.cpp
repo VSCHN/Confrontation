@@ -13,16 +13,16 @@ void Code1 () {
     for (int i=0;i<K;i++) {
         if(i==0) {
             mas[i]=R*a;
-            cout<<R<<"\n";
+            //cout<<R<<"\n";
         }
         else {
             if (Z==1) {
                 R=R-mas[i-1];
-                cout<<R<<"\n";
+                //cout<<R<<"\n";
                 mas[i]=R-mas[i-1];
             }
             else {
-                cout<<R<<"\n";
+                //cout<<R<<"\n";
                 mas[i]=R-mas[i-1];
                 R=R-mas[i-1];
             }
@@ -31,15 +31,7 @@ void Code1 () {
     }
 }
                 void Code2 () {
-                    ifstream fin("result2.txt");
-                    fin>>N;
-                    fin.close ();
-                    savetmp [N-1];
-                    ifstream fin ("result.txt");
-                    fin>>N;
-                    for (int i=0;i<K;i++) {
-                        fin>>result [i];
-                    }
+
                 }
 
 
@@ -63,7 +55,7 @@ if (N<=2) {
         fout.open ("output1.txt");
         for (int i=0;i<K;i++) {
             fout <<mas[i]<<' ';
-            cout<<mas[i]<<' ';
+            //cout<<mas[i]<<' ';
         }
         fout.close();
 }

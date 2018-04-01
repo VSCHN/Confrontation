@@ -1,57 +1,86 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <stdio.h>
 
 using namespace std;
-int R=0,Q=0,W=0,Z=0,N=1,res=0;
-int K=0, win1=0, win2=0;
-int mas[3];
+int R=0,Q=0,W=0,Z=0,N=0,res=0;
+int K=0;
 
 int main(){
     ifstream fin("input.txt");          //Определение условий игры
     fin >> K >> R >> Q >> Z;
     fin.close();
-    int res1[K], res2[K];
-    for (N; N<=Z;N++){
-        system("C:\\Users\\VISci-Portable\\Documents\\GitHub\\Confrontation\\prog1.exe"); //Запуск игрока 1
+    int res1[K][Z];
+    int res2[K][Z];
+    int win1[Z];
+    int win2[Z];
+    for (N; N<Z;N++){
+            cout<<N+1<<"\n";
+        system("C:\\Users\\VISci\\Documents\\GitHub\\Confrontation\\prog1.exe"); //Запуск игрока 1
         ifstream fin1 ("output1.txt"); //Чтение результатов игрока 1
         for (int i=0;i<K;i++) {
-            fin1 >>res1[i];
+            fin1 >>res1[i][N];
+            //cout<<res1[i][N];
         }
         fin1.close();
-        system("C:\\Users\\VISci-Portable\\Documents\\GitHub\\Confrontation\\prog2.exe"); //Запуск игрока 2
-        ifstream fin2 ("output2.txt"); //Чтение результатов игрока 2
-        for (int i=0;i<K;i++) {      //
-            fin2 >>res2[i];        //
-        }                        //
+        system("C:\\Users\\VISci\\Documents\\GitHub\\Confrontation\\prog2.exe"); //Запуск игрока 1
+        ifstream fin2 ("output2.txt"); //Чтение результатов игрока 1
+        for (int i=0;i<K;i++) {
+            fin2 >>res2[i][N];
+            //cout<<res2[i][N];
+        }
         fin2.close();
-        int win1tmp = 0;
-        int win2tmp = 0;
+        win1[N]=0;
+        win2[N]=0;
         for (int i = 0; i<K;i++){
-            if (res1[i]==res2[i]){
-                win1tmp++;
-                win2tmp++;
-                win1++;
-                win2++;
+            if (res1[i][N]==res2[i][N]){
+                win1[N]++;
+                win2[N]++;
             }
             else{
-                if(res1[i]<res2[i]){
-                    win2=win2+Q;
-                    win2tmp=win2tmp+Q;
+                if(res1[i][N]<res2[i][N]){
+                    win2[N]=win2[N]+Q;
                 }
                 else{
-                    win1=win1+Q;
-                    win1tmp=win1tmp+Q;
+                    win1[N]=win1[N]+Q;
                 }
             }
         }
-        ifstream fin("input.txt");
-        fin >> K >> R >> Q >> Z;
-        fin.close();
+        ofstream result1("result1.txt");
+        result1<<N+1<<" ";
+        for (int r=0;r<K;r++){
+            result1<<res1[r][N]<<" ";
+        }
+        result1.close();
+        ofstream result2("result2.txt");
+        result2<<N+1<<" ";
+        for (int r=0;r<K;r++){
+            result2<<res2[r][N]<<" ";
+        }
+        result2.close();
     }
-    ofstream dataout("Protokol.txt");          //Определение условий игры
-    for int (dt=1; dt<=Z;dt++){
-        dataout >>dt>>" ">>res1>>" ">>win1>>" ">>res2>>" ">> win2;
+    ofstream dataout("Protokol.txt");
+    for (int dt=0; dt<Z;dt++){
+        dataout <<dt+1<<" ";
+
+        for(int i=0;i<K;i++){
+            dataout<< res1[i][dt];
+            //cout<< res1[i][dt];
+        }
+        dataout<<" "<<win1[dt]<<" ";
+        for(int i=0;i<K;i++){
+            dataout<<res2[i][dt];
+            //cout<<res1[i][dt];
+        }
+        dataout<<" "<< win2[dt]<<"\n";
     }
+    int allwin1=0;
+    int allwin2=0;
+    for(int i=0;i<Z;i++){
+        allwin1 = allwin1+win1[i];
+        allwin2 = allwin2+win2[i];
+    }
+    dataout<<allwin1<<" "<<allwin2;
     dataout.close();
 }
