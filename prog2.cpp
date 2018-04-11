@@ -3,7 +3,7 @@
 #include <cstdlib>
 
 using namespace std;
-int R=0,Z=0,W=0,N=1,E=0;
+int R=0,Z=0,W=0,N=1,E=0,L=0;
 float K=0.0, a=0.0;
 int *mas;
 int *prot;
@@ -40,7 +40,7 @@ void Code1 () {
         }
 int main () {
         ifstream fin("input.txt");
-        fin >> K >> R >> Z;
+        fin >> L >> R >> K >> Z;
         fin.close();
 W=K;
 mmas=new int [W];

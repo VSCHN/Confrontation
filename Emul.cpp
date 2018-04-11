@@ -4,30 +4,31 @@
 #include <stdio.h>
 
 using namespace std;
-int R=0,Q=0,W=0,Z=0,N=0,res=0;
-int K=0;
+int R=10,Q=3,W=0,Z=50,N=0,res=0;
+int K=3;
 
 int main(){
-    ifstream fin("input.txt");          //Определение условий игры
+    /*ifstream fin("input.txt");          //Определение условий игры
     fin >> K >> R >> Q >> Z;
-    fin.close();
+    fin.close();*/
     int res1[K][Z];
     int res2[K][Z];
     int win1[Z];
     int win2[Z];
     for (N; N<Z;N++){
-            cout<<N+1<<"\n";
-        system("C:\\Users\\VISci\\Documents\\GitHub\\Confrontation\\prog1.exe"); //Запуск игрока 1
+            cout<<N+1<<" ";
+        system("prog1.exe"); //Запуск игрока 1
         ifstream fin1 ("output1.txt"); //Чтение результатов игрока 1
         for (int i=0;i<K;i++) {
             fin1 >>res1[i][N];
             //cout<<res1[i][N];
         }
         fin1.close();
-        system("C:\\Users\\VISci\\Documents\\GitHub\\Confrontation\\prog2.exe"); //Запуск игрока 1
-        ifstream fin2 ("output2.txt"); //Чтение результатов игрока 1
+        system("prog2.exe"); //Запуск игрока 2
+        ifstream fin2 ("output2.txt"); //Чтение результатов игрока 2
         for (int i=0;i<K;i++) {
             fin2 >>res2[i][N];
+            cout<<"\n";
             //cout<<res2[i][N];
         }
         fin2.close();
