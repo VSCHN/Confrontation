@@ -3,68 +3,121 @@
 #include <cstdlib>
 #include <stdio.h>
 
-using namespace std;
-int R=10,Q=3,W=0,Z=50,N=0,res=0;
-int K=3;
 
-int main(){
+using namespace std;
+int S=0,R=10,W=3,Z=50,T=1,res=0;
+int K=3;
+int main(int argc, char* argv[]){
+    /*cout << "Starting...\n";
+    for (int i = 0; i < argc; i++)
+    {
+        cout << "param[" << i << "] = \'" << argv[i] << "\'" << endl;
+    }
+
+    if (argc == 1)
+    {
+        cout << "Starting child!\n";
+        system("emul.exe input.txt out-data.txt");
+    }
+    else if (argc == 3)
+    {
+        cout << "We are called with 2 params!\n";
+        string command = argv[0];
+        command += ' ';
+        command += argv[2];
+        command += ' ';
+        command += argv[1];
+        command += " stop";
+        cout << "Call: \'" << command << "\'\n";
+        system(command.c_str());
+    }
+    cout << "Finished...\n";
+    return 0;*/
+
     /*ifstream fin("input.txt");          //Определение условий игры
-    fin >> K >> R >> Q >> Z;
+    fin >> S >> R >> K >> W >> Z;
     fin.close();*/
     int res1[K][Z];
     int res2[K][Z];
     int win1[Z];
     int win2[Z];
-    for (N; N<Z;N++){
-            cout<<N+1<<" ";
-        system("prog1.exe"); //Запуск игрока 1
+    int resultat[Z];
+    for (T; T<=Z;T++){
+        ofstream input1("input1.txt");
+        input1 <<S<<" "<<R<<" "<<K<<" "<<W<<"\n"<<T-1<<"\n";
+        for(int i=0;i<T;i++){
+            for(int j=0;i<K;j++){
+                input1 << res2[j][i]<<" ";
+            }
+            for(int j=0;i<K;j++){
+                input1 << res1[j][i]<<" ";
+            }
+            input1 << resultat[i];
+
+        }
+        input1.close();
+        ofstream input2("input2.txt");
+        input2 <<S<<" "<<R<<" "<<K<<" "<<W<<"\n"<<T-1;
+        for(int i=0;i<T;i++){
+            for(int j=0;i<K;j++){
+                input1 << res1[j][i]<<" ";
+            }
+            for(int j=0;i<K;j++){
+                input1 << res2[j][i]<<" ";
+            }
+            input1 << resultat[i];
+
+        }
+        input2.close();
+        cout<<T<<" "<<"Gamer1 ";
+        system("prog.exe input1 output1"); //Запуск игрока 1
         ifstream fin1 ("output1.txt"); //Чтение результатов игрока 1
         for (int i=0;i<K;i++) {
-            fin1 >>res1[i][N];
-            //cout<<res1[i][N];
+            fin1 >>res1[i][T-1];
+            //cout<<res1[i][T];
         }
         fin1.close();
-        system("prog2.exe"); //Запуск игрока 2
+        cout<<"Gamer2 ";
+        system("prog2.exe input2.txt output2.txt"); //Запуск игрока 2
         ifstream fin2 ("output2.txt"); //Чтение результатов игрока 2
         for (int i=0;i<K;i++) {
-            fin2 >>res2[i][N];
+            fin2 >>res2[i][T-1];
             cout<<"\n";
-            //cout<<res2[i][N];
+            //cout<<res2[i][T];
         }
         fin2.close();
-        win1[N]=0;
-        win2[N]=0;
+        win1[T-1]=0;
+        win2[T-1]=0;
         for (int i = 0; i<K;i++){
-            if (res1[i][N]==res2[i][N]){
-                win1[N]++;
-                win2[N]++;
+            if (res1[i][T-1]==res2[i][T-1]){
+                win1[T-1]++;
+                win2[T-1]++;
             }
             else{
-                if(res1[i][N]<res2[i][N]){
-                    win2[N]=win2[N]+Q;
+                if(res1[i][T-1]<res2[i][T-1]){
+                    win2[T-1]=win2[T-1]+W;
                 }
                 else{
-                    win1[N]=win1[N]+Q;
+                    win1[T-1]=win1[T-1]+W;
                 }
             }
         }
         ofstream result1("result1.txt");
-        result1<<N+1<<" ";
+        result1<<T<<" ";
         for (int r=0;r<K;r++){
-            result1<<res1[r][N]<<" ";
+            result1<<res1[r][T-1]<<" ";
         }
         result1.close();
         ofstream result2("result2.txt");
-        result2<<N+1<<" ";
+        result2<<T<<" ";
         for (int r=0;r<K;r++){
-            result2<<res2[r][N]<<" ";
+            result2<<res2[r][T-1]<<" ";
         }
         result2.close();
     }
     ofstream dataout("Protokol.txt");
     for (int dt=0; dt<Z;dt++){
         dataout <<dt+1<<" ";
-
         for(int i=0;i<K;i++){
             dataout<< res1[i][dt];
             //cout<< res1[i][dt];
