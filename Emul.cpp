@@ -41,36 +41,37 @@ int main(int argc, char* argv[]){
     int res2[K][Z];
     int win1[Z];
     int win2[Z];
-    int resultat[Z];
     for (T; T<=Z;T++){
         ofstream input1("input1.txt");
-        input1 <<S<<" "<<R<<" "<<K<<" "<<W<<"\n"<<T-1<<"\n";
-        for(int i=0;i<T;i++){
-            for(int j=0;i<K;j++){
+        input1 <<"1"<<" "<<R<<" "<<K<<" "<<W<<"\n"<<T-1<<"\n";
+        if (T!=0){
+            for(int i=0;i<T-1;i++){
+            for(int j=0;j<K;j++){
                 input1 << res2[j][i]<<" ";
             }
-            for(int j=0;i<K;j++){
+            for(int j=0;j<K;j++){
                 input1 << res1[j][i]<<" ";
             }
-            input1 << resultat[i];
-
+            input1 << win1[i]<<"\n";
+        }
         }
         input1.close();
         ofstream input2("input2.txt");
-        input2 <<S<<" "<<R<<" "<<K<<" "<<W<<"\n"<<T-1;
-        for(int i=0;i<T;i++){
-            for(int j=0;i<K;j++){
-                input1 << res1[j][i]<<" ";
+        input2 <<S<<" "<<R<<" "<<K<<" "<<W<<"\n"<<T-1<<"\n";
+        if(T!=0){
+            for(int i=0;i<T-1;i++){
+            for(int j=0;j<K;j++){
+                input2 << res1[j][i]<<" ";
             }
-            for(int j=0;i<K;j++){
-                input1 << res2[j][i]<<" ";
+            for(int j=0;j<K;j++){
+                input2 << res2[j][i]<<" ";
             }
-            input1 << resultat[i];
-
+            input2 << win2[i]<<"\n";
+        }
         }
         input2.close();
         cout<<T<<" "<<"Gamer1 ";
-        system("prog.exe input1 output1"); //Запуск игрока 1
+        system("prog1.exe input1 output1"); //Запуск игрока 1
         ifstream fin1 ("output1.txt"); //Чтение результатов игрока 1
         for (int i=0;i<K;i++) {
             fin1 >>res1[i][T-1];
@@ -88,20 +89,31 @@ int main(int argc, char* argv[]){
         fin2.close();
         win1[T-1]=0;
         win2[T-1]=0;
+        int tmpwin1=0;
+        int tmpwin2=0;
         for (int i = 0; i<K;i++){
             if (res1[i][T-1]==res2[i][T-1]){
-                win1[T-1]++;
-                win2[T-1]++;
+
             }
             else{
                 if(res1[i][T-1]<res2[i][T-1]){
-                    win2[T-1]=win2[T-1]+W;
+                    tmpwin2++;
                 }
                 else{
-                    win1[T-1]=win1[T-1]+W;
+                    tmpwin1++;
                 }
             }
         }
+        if(tmpwin1==tmpwin2){
+                win1[T-1]=1;
+                win2[T-1]=1;
+            }else{
+                if(tmpwin1>tmpwin2){
+                    win1[T-1]=W;
+                }else{
+                    win2[T-1]=W;
+                }
+            }
         ofstream result1("result1.txt");
         result1<<T<<" ";
         for (int r=0;r<K;r++){
