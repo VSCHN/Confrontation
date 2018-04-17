@@ -43,7 +43,7 @@ int main(int argc, char* argv[]){
     int win2[Z];
     for (T; T<=Z;T++){
         ofstream input1("input1.txt");
-        input1 <<"1"<<" "<<R<<" "<<K<<" "<<W<<"\n"<<T-1<<"\n";
+        input1 <<S<<" "<<R<<" "<<K<<" "<<W<<"\n"<<T-1<<"\n";
         if (T!=0){
             for(int i=0;i<T-1;i++){
             for(int j=0;j<K;j++){
@@ -71,7 +71,7 @@ int main(int argc, char* argv[]){
         }
         input2.close();
         cout<<T<<" "<<"Gamer1 ";
-        system("prog1.exe input1 output1"); //Запуск игрока 1
+        system("prog1.exe input1.txt output1.txt"); //Запуск игрока 1
         ifstream fin1 ("output1.txt"); //Чтение результатов игрока 1
         for (int i=0;i<K;i++) {
             fin1 >>res1[i][T-1];
@@ -129,17 +129,17 @@ int main(int argc, char* argv[]){
     }
     ofstream dataout("Protokol.txt");
     for (int dt=0; dt<Z;dt++){
-        dataout <<dt+1<<" ";
+        dataout <<dt+1<<"  ";
         for(int i=0;i<K;i++){
-            dataout<< res1[i][dt];
+            dataout<< res1[i][dt]<<" ";
             //cout<< res1[i][dt];
         }
-        dataout<<" "<<win1[dt]<<" ";
+        dataout<<" "<<win1[dt]<<"  ";
         for(int i=0;i<K;i++){
-            dataout<<res2[i][dt];
+            dataout<<res2[i][dt]<<" ";
             //cout<<res1[i][dt];
         }
-        dataout<<" "<< win2[dt]<<"\n";
+        dataout<<"  "<< win2[dt]<<"\n";
     }
     int allwin1=0;
     int allwin2=0;
