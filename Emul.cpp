@@ -5,38 +5,12 @@
 
 
 using namespace std;
-int S=0,R=10,W=3,Z=50,T=1,res=0;
-int K=3;
+int S=0,R=0,W=0,Z=0,T=1;
+int K=0;
 int main(int argc, char* argv[]){
-    /*cout << "Starting...\n";
-    for (int i = 0; i < argc; i++)
-    {
-        cout << "param[" << i << "] = \'" << argv[i] << "\'" << endl;
-    }
-
-    if (argc == 1)
-    {
-        cout << "Starting child!\n";
-        system("emul.exe input.txt out-data.txt");
-    }
-    else if (argc == 3)
-    {
-        cout << "We are called with 2 params!\n";
-        string command = argv[0];
-        command += ' ';
-        command += argv[2];
-        command += ' ';
-        command += argv[1];
-        command += " stop";
-        cout << "Call: \'" << command << "\'\n";
-        system(command.c_str());
-    }
-    cout << "Finished...\n";
-    return 0;*/
-
-    /*ifstream fin("input.txt");          //Определение условий игры
+    ifstream fin("input.txt");          //Определение условий игры
     fin >> S >> R >> K >> W >> Z;
-    fin.close();*/
+    fin.close();
     int res1[K][Z];
     int res2[K][Z];
     int win1[Z];
@@ -70,7 +44,7 @@ int main(int argc, char* argv[]){
         }
         }
         input2.close();
-        cout<<T<<" "<<"Gamer1 ";
+        cout<<T<<"\n"<<"Gamer1 ";
         system("prog1.exe input1.txt output1.txt"); //Запуск игрока 1
         ifstream fin1 ("output1.txt"); //Чтение результатов игрока 1
         for (int i=0;i<K;i++) {
@@ -78,15 +52,16 @@ int main(int argc, char* argv[]){
             //cout<<res1[i][T];
         }
         fin1.close();
+        cout<<"\n";
         cout<<"Gamer2 ";
         system("prog2.exe input2.txt output2.txt"); //Запуск игрока 2
         ifstream fin2 ("output2.txt"); //Чтение результатов игрока 2
         for (int i=0;i<K;i++) {
             fin2 >>res2[i][T-1];
-            cout<<"\n";
             //cout<<res2[i][T];
         }
         fin2.close();
+        cout<<"\n";
         win1[T-1]=0;
         win2[T-1]=0;
         int tmpwin1=0;
@@ -114,7 +89,7 @@ int main(int argc, char* argv[]){
                     win2[T-1]=W;
                 }
             }
-        ofstream result1("result1.txt");
+        /*ofstream result1("result1.txt");
         result1<<T<<" ";
         for (int r=0;r<K;r++){
             result1<<res1[r][T-1]<<" ";
@@ -125,9 +100,10 @@ int main(int argc, char* argv[]){
         for (int r=0;r<K;r++){
             result2<<res2[r][T-1]<<" ";
         }
-        result2.close();
+        result2.close();*/
     }
     ofstream dataout("Protokol.txt");
+    dataout<<"№ my W1 enemy W2";
     for (int dt=0; dt<Z;dt++){
         dataout <<dt+1<<"  ";
         for(int i=0;i<K;i++){

@@ -202,7 +202,7 @@ else {
 ofstream outputfile (output_file.c_str());
     for (int i=0; i<K; i++){
         outputfile <<mas[i]<<" ";
-        cout<<mas[i]<<"  ";
+        cout<<mas[i]<<" ";
     }
     outputfile<<"\n";
     outputfile.close();
